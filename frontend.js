@@ -15,11 +15,13 @@ function displayTodolist(todolist){
         const todoright = document.createElement("div")
         todoright.classList.add("todo-right");
 
+        // todo title
         const todoTitle = document.createElement("div");
         todoTitle.textContent = item.title;
         todoTitle.classList.add("todo-title");
         todoleft.appendChild(todoTitle);
 
+        // three buttons
         const detailsBtn = document.createElement("button");
         detailsBtn.classList.add("details-btn");
         detailsBtn.textContent = "details";
@@ -35,6 +37,17 @@ function displayTodolist(todolist){
 
         todo.appendChild(todoleft);
         todo.appendChild(todoright);
+
+        //details area (hidden)
+        const detailsArea = document.createElement("div");
+        detailsArea.classList.add("todo-details");
+        detailsArea.innerHTML = 
+        `<p>Due date: ${item.dueDate}</p>
+        <p>Description: ${item.description}</p>
+        <p>Priority: ${item.priority}</p>
+        <p>Category: ${item.category}</p>`;
+        todo.appendChild(detailsArea);
+
         todos.appendChild(todo);
     }
 }
@@ -111,6 +124,12 @@ todos.addEventListener("click", (event) => {
         const id = todo.getAttribute("data-id");
         list.deleteToDoWithId(id);
         event.target.parentElement.parentElement.remove();
+    }
+    //show todo details
+    if (event.target.matches(".details-btn"))
+    {
+        const detailArea = event.target.parentElement.parentElement.querySelector(".todo-details");
+        detailArea.classList.toggle("open");
     }
 })
 

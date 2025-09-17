@@ -67,7 +67,9 @@ class ToDo {
     get dueDate() {return this._dueDate;}
     set dueDate(date) { this._dueDate = date;}
     get priority() {return this._priority;}
-    set priority(priority) {this._priority = priority};
+    set priority(priority) {this._priority = priority;};
+    get category() {return this._category;}
+    set category(cat) {this._category = cat;};
 
      get id() {return this._id;}
 }

@@ -35,9 +35,8 @@ button {
     font-size: 20px;
 }
 .todos{
-    display: grid;
-    grid-template-rows: 70px;
-    grid-auto-rows: 70px;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
     width: 95%;
     padding-top: 10px;
@@ -53,15 +52,34 @@ button {
 .todo{
     width: 100%;
     font-size: 20px;
-    height: 100%;
+    height: auto;
     padding: 10px;
     background-color: white;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 230px;
     justify-content: space-between;
 }
 .todo-right > button{
     margin: 10px;
 }
+.todo-left{
+    display: flex;
+    align-items: center;
+}
+
+.todo-details{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.todo-details.open{
+    max-height: 200px;
+}
+.todo-details p{
+    font-size: 0.8rem;
+    margin: 2px;
+}
+
 #add-todo-dialog{
     position: relative;
     width: max(40vw, 440px);
@@ -77,10 +95,15 @@ button {
 #add-todo-dialog section{
     margin: 20px;
 }
-#add-todo-dialog input{
+#add-todo-dialog input,
+#add-todo-dialog textarea{
     padding: 3px;
     font-family: inherit;
     font-size: 1rem;
+}
+#add-todo-dialog textarea{
+    font-size: 0.8rem;
+    height: 4rem;
 }
 .close-btn {
     position: absolute;
@@ -110,4 +133,9 @@ button {
 }
 .submit-btn:hover{
     background-color: aliceblue;
+}
+
+dialog::backdrop{
+    background-color: rgba(75, 75, 75, 0.4);
+    backdrop-filter: blur(2px);
 }
