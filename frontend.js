@@ -2,6 +2,13 @@ import {ToDoList} from "./backend.js"
 const todos = document.querySelector(".todos");
 const list = new ToDoList();
 
+function convertToMonthDay(fulldate){
+    if (fulldate === "")
+        return "";
+    const [year, month, day] = fulldate.split("-");
+    return(`${month}-${day}`);
+}
+
 function displayTodolist(todolist){
     const list = todolist.getTodoList();
     for (let item of list)
@@ -21,6 +28,11 @@ function displayTodolist(todolist){
         todoTitle.classList.add("todo-title");
         todoleft.appendChild(todoTitle);
 
+        // due date
+        const date = document.createElement("p");
+        date.classList.add("duedate");
+        date.textContent = convertToMonthDay(item.dueDate);
+
         // three buttons
         const detailsBtn = document.createElement("button");
         detailsBtn.classList.add("details-btn");
@@ -36,6 +48,7 @@ function displayTodolist(todolist){
         todoright.appendChild(deleteBtn);
 
         todo.appendChild(todoleft);
+        todo.appendChild(date);
         todo.appendChild(todoright);
 
         //details area (hidden)
@@ -48,6 +61,10 @@ function displayTodolist(todolist){
         <p>Category: ${item.category}</p>`;
         todo.appendChild(detailsArea);
 
+        if (item.priority === "medium")
+            todo.style.backgroundColor = "rgb(255, 241, 162)";
+        else if (item.priority === "high")
+            todo.style.backgroundColor = "rgb(255, 182, 162)";
         todos.appendChild(todo);
     }
 }

@@ -39,7 +39,7 @@ button {
     flex-direction: column;
     gap: 10px;
     width: 95%;
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
 #add-todo-btn{
@@ -53,14 +53,24 @@ button {
     width: 100%;
     font-size: 20px;
     height: auto;
-    padding: 10px;
+    padding: 20px 20px;
     background-color: white;
     display: grid;
-    grid-template-columns: 1fr 230px;
-    justify-content: space-between;
+    grid-template-columns: 5fr 80px 200px;
 }
-.todo-right > button{
-    margin: 10px;
+.todo-right{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 20px;
+}
+.todo > .duedate{
+    font-size: 14px;
+    margin-right: 20px;
+    color: grey;
+    margin: 0;
+    display: flex;
+    align-items: center;
 }
 .todo-left{
     display: flex;
@@ -71,6 +81,7 @@ button {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
+    padding-top: 7px;
 }
 .todo-details.open{
     max-height: 200px;
