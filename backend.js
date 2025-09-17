@@ -71,6 +71,13 @@ class ToDo {
     get category() {return this._category;}
     set category(cat) {this._category = cat;};
 
+    toggleCompleted(){
+        if (this._completed)
+            this._completed = false;
+        else
+            this._completed = true;
+    }
+
      get id() {return this._id;}
 }
 

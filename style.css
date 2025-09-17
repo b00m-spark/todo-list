@@ -58,6 +58,19 @@ button {
     display: grid;
     grid-template-columns: 5fr 80px 200px;
 }
+.todo.completed{
+    opacity: 0.6;
+}
+
+.checkbox{
+    height: 20px;
+    width: 20px;
+}
+
+.todo-title{
+    margin-left: 10px;
+}
+
 .todo-right{
     display: flex;
     align-items: center;
@@ -81,7 +94,6 @@ button {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
-    padding-top: 7px;
 }
 .todo-details.open{
     max-height: 200px;

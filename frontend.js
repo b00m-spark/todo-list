@@ -22,6 +22,11 @@ function displayTodolist(todolist){
         const todoright = document.createElement("div")
         todoright.classList.add("todo-right");
 
+        // check box
+        const checkbox = document.createElement("input");
+        checkbox.setAttribute("type", "checkbox");
+        checkbox.classList.add("checkbox");
+        todoleft.appendChild(checkbox);
         // todo title
         const todoTitle = document.createElement("div");
         todoTitle.textContent = item.title;
@@ -135,7 +140,7 @@ todos.addEventListener("click", (event) => {
         form.setAttribute("data-formId", id);
     }
     //delete the todo
-    if (event.target.matches(".delete-btn"))
+    else if (event.target.matches(".delete-btn"))
     {
         let todo = event.target.parentElement.parentElement;
         const id = todo.getAttribute("data-id");
@@ -143,11 +148,17 @@ todos.addEventListener("click", (event) => {
         event.target.parentElement.parentElement.remove();
     }
     //show todo details
-    if (event.target.matches(".details-btn"))
+    else if (event.target.matches(".details-btn"))
     {
         const detailArea = event.target.parentElement.parentElement.querySelector(".todo-details");
         detailArea.classList.toggle("open");
     }
+    //toggle to completed
+    else if (event.target.matches(".checkbox"))
+    {
+        event.target.parentElement.parentElement.classList.toggle("completed");
+    }
 })
+
 
 displayTodolist(list);
