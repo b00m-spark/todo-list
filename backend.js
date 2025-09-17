@@ -1,5 +1,5 @@
 
-class ToDoList {
+export class ToDoList {
     constructor(){
         this.todolist = [];
         this.categories = ["default"];
@@ -18,21 +18,23 @@ class ToDoList {
     addNewCategory(name){
         this.categories.push(name);
     }
+    getTodoList(){
+        return this.todolist;
+    }
 }
 
 class ToDo {
     constructor(title, description, dueDate, priority, category){
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.category = category;
-        this.completed = false;
-        this.id = crypto.randomUUID();
+        this._title = title;
+        this._description = description;
+        this._dueDate = dueDate;
+        this._priority = priority;
+        this._category = category;
+        this._completed = false;
+        this._id = crypto.randomUUID();
     }
+    get title(){ return this._title;}
+    get id() {return this._id;}
 }
 
-const list = new ToDoList();
-list.addToDo("Read", "read new book", "2025-10-01", "high", "default");
-list.addToDo("Complete survey", "saved in email", "2025-10-01", "medium", "default");
-list.displayOnConsole();
+

@@ -4,32 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-do-list</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
+        <dialog id="add-todo-dialog">
+            <button class="close-btn">x</button>
+            <form id="add-todo-form" data-formId="">
+                <section>
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title">
+                </section>
+                <section>
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description"></textarea>
+                </section>
+                <section>
+                    <label for="duedate">Due date:</label>
+                    <input type="date" id="duedate" name="duedate">
+                </section>
+                <section>
+                    <label>Priority:</label>
+                        <input type="radio" id="low" name="priority" value="low">
+                        <label for="low">Low</label>
+
+                        <input type="radio" id="medium" name="priority" value="medium">
+                        <label for="medium">Medium</label>
+
+                        <input type="radio" id="high" name="priority" value="high">
+                        <label for="high">High</label>
+                </section>
+                <section>
+                    <button class="submit-btn">confirm</button>
+                </section>
+            </form>
+        </dialog>
         <div class="sidebar">
             <button class="category-btn">Home</button>
         </div>
         <div class="content">
             <button id="add-todo-btn">+ Add new to-do</button>
             <div class="todos">
-                <div class="todo">
-                    <div class="todo-left">todo1</div>
+                <div class="todo" data-id="">
+                    <div class="todo-left">
+                        <div class="todo-title">todo1</div>
+                    </div>
                     <div class="todo-right">
-                        <button>details</button>
-                        <button>edit</button>
-                        <button>delete</button>
+                        <button class="details-btn">details</button>
+                        <button class="edit-btn">edit</button>
+                        <button class="delete-btn">delete</button>
                     </div>
                 </div>
                 <div class="todo">todo2</div>
                 <div class="todo">todo3</div>
-                <div class="todo">todo4</div>
-                <div class="todo">todo5</div>
             </div>
         </div>
             
         </div>
     </div>
+    <script type="module" src="frontend.js"></script>
 </body>
 </html>
