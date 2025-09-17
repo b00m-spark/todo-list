@@ -4,6 +4,10 @@ export class ToDoList {
         this.todolist = [];
         this.categories = ["default"];
     }
+    findIndexWithId(id){
+        return this.todolist.findIndex(todo => todo.id === id);
+    }
+
     displayOnConsole(){
         for (let todo of this.todolist)
             console.log(todo);
@@ -12,7 +16,8 @@ export class ToDoList {
         let todo = new ToDo(title, description, dueDate, priority, category);
         this.todolist.push(todo);
     }
-    deleteToDoAt(index){
+    deleteToDoWithId(id){
+        const index = this.findIndexWithId(id);
         this.todolist.splice(index, 1);
     }
     addNewCategory(name){
@@ -28,19 +33,19 @@ export class ToDoList {
         return this.todolist.findIndex(todo => todo.id === id);
     }
     changeTitleOf(newTitle, id){
-        const index = this.todolist.findIndex(todo => todo.id === id);
+        const index = this.findIndexWithId(id);
         this.todolist[index].title = newTitle;
     }
     changeDescriptionOf(newDes, id){
-        const index = this.todolist.findIndex(todo => todo.id === id);
+        const index = this.findIndexWithId(id);
         this.todolist[index].description = newDes;
     }
     changeDueDateOf(newDate, id){
-        const index = this.todolist.findIndex(todo => todo.id === id);
+        const index = this.findIndexWithId(id);
         this.todolist[index].dueDate = newDate;
     }
     changePriorityOf(newPriority, id){
-        const index = this.todolist.findIndex(todo => todo.id === id);
+        const index = this.findIndexWithId(id);
         this.todolist[index].priority = newPriority;
     }
 }

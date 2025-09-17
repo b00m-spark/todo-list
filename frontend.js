@@ -104,9 +104,14 @@ todos.addEventListener("click", (event) => {
         }
         form.setAttribute("data-formId", id);
     }
+    //delete the todo
+    if (event.target.matches(".delete-btn"))
+    {
+        let todo = event.target.parentElement.parentElement;
+        const id = todo.getAttribute("data-id");
+        list.deleteToDoWithId(id);
+        event.target.parentElement.parentElement.remove();
+    }
 })
 
-
-list.addToDo("Read", "read new book", "2025-10-01", "high", "default");
-list.addToDo("Complete survey", "saved in email", "2025-10-01", "medium", "default");
 displayTodolist(list);
