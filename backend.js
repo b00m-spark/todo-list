@@ -21,6 +21,28 @@ export class ToDoList {
     getTodoList(){
         return this.todolist;
     }
+    getToDo(id){
+        return this.todolist.find(todo => todo.id === id);
+    }
+    getToDoAt(id){
+        return this.todolist.findIndex(todo => todo.id === id);
+    }
+    changeTitleOf(newTitle, id){
+        const index = this.todolist.findIndex(todo => todo.id === id);
+        this.todolist[index].title = newTitle;
+    }
+    changeDescriptionOf(newDes, id){
+        const index = this.todolist.findIndex(todo => todo.id === id);
+        this.todolist[index].description = newDes;
+    }
+    changeDueDateOf(newDate, id){
+        const index = this.todolist.findIndex(todo => todo.id === id);
+        this.todolist[index].dueDate = newDate;
+    }
+    changePriorityOf(newPriority, id){
+        const index = this.todolist.findIndex(todo => todo.id === id);
+        this.todolist[index].priority = newPriority;
+    }
 }
 
 class ToDo {
@@ -34,7 +56,15 @@ class ToDo {
         this._id = crypto.randomUUID();
     }
     get title(){ return this._title;}
-    get id() {return this._id;}
+    set title(newTitle) { this._title = newTitle;}
+    get description() {return this._description;}
+    set description(newDescrip) {this._description = newDescrip;}
+    get dueDate() {return this._dueDate;}
+    set dueDate(date) { this._dueDate = date;}
+    get priority() {return this._priority;}
+    set priority(priority) {this._priority = priority};
+
+     get id() {return this._id;}
 }
 
 

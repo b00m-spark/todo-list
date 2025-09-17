@@ -21,15 +21,15 @@ function displayTodolist(todolist){
         todoleft.appendChild(todoTitle);
 
         const detailsBtn = document.createElement("button");
-        detailsBtn.id = "details-btn";
+        detailsBtn.classList.add("details-btn");
         detailsBtn.textContent = "details";
         todoright.appendChild(detailsBtn);
         const editBtn = document.createElement("button");
-        editBtn.id = "edit-btn";
+        editBtn.classList.add("edit-btn");
         editBtn.textContent = "edit";
         todoright.appendChild(editBtn);
         const deleteBtn = document.createElement("button");
-        deleteBtn.id = "delete-btn";
+        deleteBtn.classList.add("delete-btn");
         deleteBtn.textContent = "delete";
         todoright.appendChild(deleteBtn);
 
@@ -71,10 +71,39 @@ form.addEventListener("submit", (event) => {
     const id = form.getAttribute("data-formId");
     if (id === "")
         list.addToDo(data["title"], data["description"], data["duedate"], data["priority"], "default");
-    
+    else{
+        list.changeTitleOf(data["title"], id);
+        list.changeDescriptionOf(data["description"], id);
+        list.changeDueDateOf(data["duedate"], id);
+        list.changePriorityOf(data["priority"], id);
+    }
     todos.innerHTML = "";
     displayTodolist(list);
     dialog.close();
+})
+
+todos.addEventListener("click", (event) => {
+    //edit the todo
+    if (event.target.matches(".edit-btn"))
+    {
+        dialog.showModal();
+        form.reset();
+
+        let todo = event.target.parentElement.parentElement;
+        const id = todo.getAttribute("data-id")
+        todo = list.getToDo(id);
+
+        document.querySelector("#title").value = todo.title;
+        document.querySelector("#description").value = todo.description;
+        console.log(todo.duedate);
+        document.querySelector("#duedate").value = todo.dueDate;
+        switch (todo.priority){
+            case "low":     document.querySelector("#low").checked = true;      break;
+            case "medium":  document.querySelector("#medium").checked = true;   break;
+            case "high":    document.querySelector("#high").checked = true;     break;
+        }
+        form.setAttribute("data-formId", id);
+    }
 })
 
 
