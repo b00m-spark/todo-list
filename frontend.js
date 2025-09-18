@@ -9,10 +9,14 @@ function convertToMonthDay(fulldate){
     return(`${month}-${day}`);
 }
 
-function displayTodolist(todolist){
+function displayTodolist(todolist, category=""){
     const list = todolist.getTodoList();
     for (let item of list)
     {
+        //check if this todo is the given category
+        if (category !== "" && category != item.category)
+            continue;
+
         const todo = document.createElement("div");
         todo.classList.add("todo");
         todo.setAttribute("data-id", item.id);
@@ -70,18 +74,55 @@ function displayTodolist(todolist){
             todo.style.backgroundColor = "rgb(255, 241, 162)";
         else if (item.priority === "high")
             todo.style.backgroundColor = "rgb(255, 182, 162)";
+        if (item.completed){
+            checkbox.checked = true;
+            todo.classList.add("completed");
+        }
+
         todos.appendChild(todo);
     }
 }
+
+const sidebarcats = document.querySelector(".sidebar-categories");
+function displayCategories(categories){
+    for (let catname of categories){
+        const catbtn = document.createElement("button");
+        catbtn.classList.add("category-btn");
+        catbtn.textContent = catname;
+        sidebarcats.appendChild(catbtn);
+    }
+}
+
+const addCatBtn = document.querySelector(".add-new-category-btn");
+addCatBtn.addEventListener("click", () => {
+    let newCatName = prompt("Name of new category:");
+    list.addNewCategory(newCatName);
+    sidebarcats.innerHTML = "";
+    displayCategories(list.getCategories());
+})
 
 const addNewBtn = document.querySelector("#add-todo-btn");
 const form = document.querySelector("#add-todo-form");
 const dialog = document.querySelector("#add-todo-dialog");
 
+//add the category options
+function addCategoryOptions(dialog){
+    const options = dialog.querySelector("#category");
+    options.innerHTML = "";
+    const categories = list.getCategories();
+    for (let cat of categories){
+        const option = document.createElement("option");
+        option.setAttribute("value", cat);
+        option.textContent = cat;
+        options.appendChild(option);
+    }
+}
+
 //add new todo
 addNewBtn.addEventListener("click", () => {
     form.reset();
     dialog.showModal();
+    addCategoryOptions(dialog);
     form.setAttribute("data-formId", "");
 })
 
@@ -105,15 +146,16 @@ form.addEventListener("submit", (event) => {
 
     const id = form.getAttribute("data-formId");
     if (id === "")
-        list.addToDo(data["title"], data["description"], data["duedate"], data["priority"], "default");
+        list.addToDo(data["title"], data["description"], data["duedate"], data["priority"], data["category"]);
     else{
         list.changeTitleOf(data["title"], id);
         list.changeDescriptionOf(data["description"], id);
         list.changeDueDateOf(data["duedate"], id);
         list.changePriorityOf(data["priority"], id);
+        list.changeCategoryOf(data["category"], id);
     }
     todos.innerHTML = "";
-    displayTodolist(list);
+    displayTodolist(list, todos.getAttribute("data-category"));
     dialog.close();
 })
 
@@ -122,6 +164,7 @@ todos.addEventListener("click", (event) => {
     if (event.target.matches(".edit-btn"))
     {
         dialog.showModal();
+        addCategoryOptions(dialog);
         form.reset();
 
         let todo = event.target.parentElement.parentElement;
@@ -130,13 +173,13 @@ todos.addEventListener("click", (event) => {
 
         document.querySelector("#title").value = todo.title;
         document.querySelector("#description").value = todo.description;
-        console.log(todo.duedate);
         document.querySelector("#duedate").value = todo.dueDate;
         switch (todo.priority){
             case "low":     document.querySelector("#low").checked = true;      break;
             case "medium":  document.querySelector("#medium").checked = true;   break;
             case "high":    document.querySelector("#high").checked = true;     break;
         }
+        document.querySelector("#category").value = todo.category;
         form.setAttribute("data-formId", id);
     }
     //delete the todo
@@ -157,8 +200,26 @@ todos.addEventListener("click", (event) => {
     else if (event.target.matches(".checkbox"))
     {
         event.target.parentElement.parentElement.classList.toggle("completed");
+        const id = event.target.parentElement.parentElement.getAttribute("data-id");
+        list.changeCompletedStatusOf(id);
     }
 })
 
+const sidebar = document.querySelector(".sidebar");
+sidebar.addEventListener("click", (event) => {
+    if (event.target.matches("#homebtn")){
+        todos.innerHTML = "";
+        todos.setAttribute("data-category", "");
+        displayTodolist(list);
+    }
+    else if (event.target.matches(".category-btn"))
+    {
+        const categoryName = event.target.textContent;
+        todos.innerHTML = "";
+        todos.setAttribute("data-category", categoryName);
+        displayTodolist(list, categoryName);
+    }
+})
 
+displayCategories(list.getCategories());
 displayTodolist(list);

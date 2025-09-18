@@ -26,28 +26,40 @@
                     <label for="duedate">Due date:</label>
                     <input type="date" id="duedate" name="duedate">
                 </section>
-                <section>
+                <section id="priority">
                     <label>*Priority:</label>
-                        <input type="radio" id="low" name="priority" value="low" required checked="true">
-                        <label for="low">Low</label>
-
-                        <input type="radio" id="medium" name="priority" value="medium">
-                        <label for="medium">Medium</label>
-
-                        <input type="radio" id="high" name="priority" value="high">
-                        <label for="high">High</label>
+                        <div>
+                            <input type="radio" id="low" name="priority" value="low" required checked="true">
+                            <label for="low">Low</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="medium" name="priority" value="medium">
+                            <label for="medium">Medium</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="high" name="priority" value="high">
+                            <label for="high">High</label>
+                        </div>
                 </section>
                 <section>
+                    <label for="category">Category:</label>
+                    <select id="category" name="category"></select>
+                </section>
+                <section id="confirm">
                     <button class="submit-btn">confirm</button>
                 </section>
             </form>
         </dialog>
         <div class="sidebar">
-            <button class="category-btn">Home</button>
+            <div class="sidebar-main">
+                <button class="add-new-category-btn">+ Add new category</button>
+                <button class="category-btn" id="homebtn">Home</button>
+            </div>
+            <div class="sidebar-categories"></div>
         </div>
         <div class="content">
             <button id="add-todo-btn">+ Add new to-do</button>
-            <div class="todos">
+            <div class="todos" data-category="">
                 <div class="todo" data-id="">
                     <div class="todo-left">
                         <input type="checkbox" class="checkbox">

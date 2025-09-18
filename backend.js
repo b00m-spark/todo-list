@@ -2,7 +2,7 @@
 export class ToDoList {
     constructor(){
         this.todolist = [];
-        this.categories = ["default"];
+        this.categories = ["default","school","life"];
     }
     findIndexWithId(id){
         return this.todolist.findIndex(todo => todo.id === id);
@@ -48,6 +48,17 @@ export class ToDoList {
         const index = this.findIndexWithId(id);
         this.todolist[index].priority = newPriority;
     }
+    changeCompletedStatusOf(id){
+        const index = this.findIndexWithId(id);
+        this.todolist[index].toggleCompleted();
+    }
+    changeCategoryOf(newCat, id){
+        const index = this.findIndexWithId(id);
+        this.todolist[index].category = newCat;
+    }
+    getCategories(){
+        return this.categories;
+    }
 }
 
 class ToDo {
@@ -70,6 +81,7 @@ class ToDo {
     set priority(priority) {this._priority = priority;};
     get category() {return this._category;}
     set category(cat) {this._category = cat;};
+    get completed() {return this._completed;}
 
     toggleCompleted(){
         if (this._completed)

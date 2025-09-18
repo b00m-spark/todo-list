@@ -14,12 +14,20 @@ button {
     height: 100vh;
 }
 
-.sidebar {
+.sidebar,
+.sidebar-main,
+.sidebar-categories{
     background-color: rgb(98, 198, 213);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.sidebar button{
+    display: block;
+    width: 100%;
+    margin: 5px;
 }
 .content{
     background-color: rgb(240, 244, 243);
@@ -59,7 +67,7 @@ button {
     grid-template-columns: 5fr 80px 200px;
 }
 .todo.completed{
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 .checkbox{
@@ -105,7 +113,7 @@ button {
 
 #add-todo-dialog{
     position: relative;
-    width: max(40vw, 440px);
+    width: max(40vw, 530px);
     padding: 30px;
     --dialog-background: rgb(216, 240, 244);
     background-color: var(--dialog-background);
@@ -115,8 +123,21 @@ button {
     font-size: 18px;
     text-align: center;
 }
-#add-todo-dialog section{
-    margin: 20px;
+section{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    margin: 15px;
+}
+section > label{
+    text-align: end;
+    margin-right: 10px;
+}
+#add-todo-dialog section#priority{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+#add-todo-dialog section#confirm{
+    display: block;
 }
 #add-todo-dialog input,
 #add-todo-dialog textarea{
@@ -161,4 +182,9 @@ button {
 dialog::backdrop{
     background-color: rgba(75, 75, 75, 0.4);
     backdrop-filter: blur(2px);
+}
+
+select#category{
+    font-size: 1rem;
+    font-family: inherit;
 }
