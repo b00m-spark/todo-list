@@ -97,6 +97,7 @@ const addCatBtn = document.querySelector(".add-new-category-btn");
 addCatBtn.addEventListener("click", () => {
     let newCatName = prompt("Name of new category:");
     list.addNewCategory(newCatName);
+    list.save();
     sidebarcats.innerHTML = "";
     displayCategories(list.getCategories());
 })
@@ -154,6 +155,7 @@ form.addEventListener("submit", (event) => {
         list.changePriorityOf(data["priority"], id);
         list.changeCategoryOf(data["category"], id);
     }
+    list.save();
     todos.innerHTML = "";
     displayTodolist(list, todos.getAttribute("data-category"));
     dialog.close();
@@ -188,6 +190,7 @@ todos.addEventListener("click", (event) => {
         let todo = event.target.parentElement.parentElement;
         const id = todo.getAttribute("data-id");
         list.deleteToDoWithId(id);
+        list.save()
         event.target.parentElement.parentElement.remove();
     }
     //show todo details
@@ -202,6 +205,7 @@ todos.addEventListener("click", (event) => {
         event.target.parentElement.parentElement.classList.toggle("completed");
         const id = event.target.parentElement.parentElement.getAttribute("data-id");
         list.changeCompletedStatusOf(id);
+        list.save();
     }
 })
 

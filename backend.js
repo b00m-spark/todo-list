@@ -1,8 +1,22 @@
 
 export class ToDoList {
     constructor(){
-        this.todolist = [];
-        this.categories = ["default","school","life"];
+        const savedList = localStorage.getItem("todosStorage");
+        const defaultCategories = ["default", "school", "life"];
+        const defaultTodos = [];
+
+        if (savedList) {
+            // Parse saved data
+            const data = JSON.parse(savedList);
+            this.todolist = data.todolist || defaultTodos;
+            this.categories = data.categories || defaultCategories;
+        } else {
+            this.todolist = defaultTodos;
+            this.categories = defaultCategories;
+        }
+    }
+    save(){
+        localStorage.setItem("todosStorage", JSON.stringify(this));
     }
     findIndexWithId(id){
         return this.todolist.findIndex(todo => todo.id === id);
@@ -13,7 +27,7 @@ export class ToDoList {
             console.log(todo);
     }
     addToDo(title, description, dueDate, priority, category) {
-        let todo = new ToDo(title, description, dueDate, priority, category);
+        let todo = {title, description, dueDate, priority, category, completed: false, id: crypto.randomUUID()};
         this.todolist.push(todo);
     }
     deleteToDoWithId(id){
@@ -50,7 +64,7 @@ export class ToDoList {
     }
     changeCompletedStatusOf(id){
         const index = this.findIndexWithId(id);
-        this.todolist[index].toggleCompleted();
+        this.todolist[index].completed = !this.todolist[index].completed;
     }
     changeCategoryOf(newCat, id){
         const index = this.findIndexWithId(id);
@@ -61,36 +75,5 @@ export class ToDoList {
     }
 }
 
-class ToDo {
-    constructor(title, description, dueDate, priority, category){
-        this._title = title;
-        this._description = description;
-        this._dueDate = dueDate;
-        this._priority = priority;
-        this._category = category;
-        this._completed = false;
-        this._id = crypto.randomUUID();
-    }
-    get title(){ return this._title;}
-    set title(newTitle) { this._title = newTitle;}
-    get description() {return this._description;}
-    set description(newDescrip) {this._description = newDescrip;}
-    get dueDate() {return this._dueDate;}
-    set dueDate(date) { this._dueDate = date;}
-    get priority() {return this._priority;}
-    set priority(priority) {this._priority = priority;};
-    get category() {return this._category;}
-    set category(cat) {this._category = cat;};
-    get completed() {return this._completed;}
-
-    toggleCompleted(){
-        if (this._completed)
-            this._completed = false;
-        else
-            this._completed = true;
-    }
-
-     get id() {return this._id;}
-}
 
 
